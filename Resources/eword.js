@@ -11,8 +11,7 @@ function loadWords() {
                      '{"word": "ellaborate", "definition": " this word means", "priority": 1},' +
                      '{"word": "programming", "definition": " this word means2", "priority": 2}' +
                      ']');
-    var row = Titanium.UI.createTableViewRow({height:'auto'});
-    var post_view = Titanium.UI.createView({height:'auto', layout:'vertical', top:5, right:5, bottom:5, left:5});
+
 
     for (var i = 0; i < words.length; i++) {
         var word = words[i].word;
@@ -26,8 +25,10 @@ function loadWords() {
                 height: 'auto',
                 width: 236,
                 textAlign: 'left',
-                font:{ fontSize:14 }
+                font:{ fontSize:18, fontWeight:'bold' }
             });
+        var row = Titanium.UI.createTableViewRow({height:'auto'});
+        var post_view = Titanium.UI.createView({height:'auto', layout:'vertical', top:5, right:5, bottom:5, left:5});
         post_view.add(word_lbl);
         row.add(post_view);
         row.className = "item" + i;
