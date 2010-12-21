@@ -1,16 +1,29 @@
-var tabGroup = Titanium.UI.createTabGroup();
-var mainWin = Titanium.UI.createWindow({
+var ListWin = Titanium.UI.createWindow({
         title: "EWord List",
         backgroundColor: "#fff",
-        url: "eword.js"
+        url: "list.js"
     });
 
-var mainTab = Titanium.UI.createTab({
-        title: "EWord",
-        window: mainWin
+var InputWin = Titanium.UI.createWindow({
+        title: "EWord Input",
+        backgroundColor: "#fff",
+        url: "input.js"
     });
 
-tabGroup.addTab(mainTab);
+
+var tabGroup = Titanium.UI.createTabGroup();
+var listTab = Titanium.UI.createTab({
+        title: "EWord List",
+        window: ListWin
+    });
+
+var inputTab = Titanium.UI.createTab({
+        title: "EWord Input",
+        window: InputWin
+    });
+
+tabGroup.addTab(listTab);
+tabGroup.addTab(inputTab);
 tabGroup.open();
 
 
