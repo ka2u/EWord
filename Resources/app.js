@@ -10,7 +10,6 @@ var InputWin = Titanium.UI.createWindow({
         url: "input.js"
     });
 
-
 var tabGroup = Titanium.UI.createTabGroup();
 var listTab = Titanium.UI.createTab({
         title: "EWord List",

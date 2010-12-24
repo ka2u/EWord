@@ -1,11 +1,8 @@
 var win = Titanium.UI.currentWindow;
+var tableView = null;
 
 function loadWords() {
     var rowData = [];
-    //var words = eval('[' +
-    //                 '{"word": "ellaborate", "definition": " this word means", "priority": 1},' +
-    //                 '{"word": "programming", "definition": " this word means2", "priority": 2}' +
-    //                 ']');
     var loader = Ti.Network.createHTTPClient();
     loader.open("GET", "http://192.168.11.8:5000/list");
     loader.onload = function() {
@@ -41,10 +38,27 @@ function loadWords() {
             row.className = "item" + i;
             rowData[i] = row;
         }
-        var tableView = Titanium.UI.createTableView({data: rowData});
+        tableView = Titanium.UI.createTableView();
+        tableView.setData(rowData);
         win.add(tableView);
     }
     loader.send();
+}
+
+var rel = null;
+var menuClickHandler = function() {
+        rel.addEventListener('click', function() {
+                tableView.setData([]);
+                setTimeout(function() {
+                        loadWords();
+                    }, 1000);
+            });
+}
+var activity = Ti.Android.currentActivity;
+activity.onCreateOptionsMenu = function(e) {
+    var menu = e.menu;
+    rel = menu.add({title: 'reload'});
+    menuClickHandler();
 }
 
 loadWords();
