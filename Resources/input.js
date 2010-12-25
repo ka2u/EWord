@@ -15,7 +15,9 @@ function loadInput() {
                 var diag = Titanium.UI.createAlertDialog({message: mess.result});
                 diag.show();
             };
-            xhr.open("POST", "http://192.168.11.8:5000/input");
+            //xhr.open("POST", "http://192.168.11.8:5000/input");
+            //xhr.open("POST", "http://192.168.11.6:5080/input");
+            xhr.open("POST", "http://learn2crawl.org:5080/input");
             xhr.send({word: text.value});
         });
     var controls = Ti.UI.createView({

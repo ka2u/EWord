@@ -4,7 +4,9 @@ var tableView = null;
 function loadWords() {
     var rowData = [];
     var loader = Ti.Network.createHTTPClient();
-    loader.open("GET", "http://192.168.11.8:5000/list");
+    //loader.open("GET", "http://192.168.11.8:5000/list");
+    //loader.open("GET", "http://192.168.11.6:5080/list");
+    loader.open("GET", "http://learn2crawl.org:5080/list");
     loader.onload = function() {
         var words = JSON.parse(this.responseText);
         for (var i = 0; i < words.length; i++) {
@@ -25,7 +27,9 @@ function loadWords() {
             var post_view = Titanium.UI.createView({height:'auto', layout:'vertical', top:5, right:5, bottom:5, left:5});
             word_lbl.addEventListener('click', function() {
                     var xhr = Titanium.Network.createHTTPClient();
-                    xhr.open("POST", "http://192.168.11.8:5000/def");
+                    //xhr.open("POST", "http://192.168.11.8:5000/def");
+                    //xhr.open("POST", "http://192.168.11.6:5080/def");
+                    xhr.open("POST", "http://learn2crawl.org:5080/def");
                     xhr.onload = function() {
                         var mess = JSON.parse(this.responseText);
                         var diag = Titanium.UI.createAlertDialog({message: mess.def});
@@ -48,10 +52,15 @@ function loadWords() {
 var rel = null;
 var menuClickHandler = function() {
         rel.addEventListener('click', function() {
-                tableView.setData([]);
-                setTimeout(function() {
-                        loadWords();
-                    }, 1000);
+                if (tableView) {
+                    tableView.setData([]);
+                    setTimeout(function() {
+                            loadWords();
+                        }, 1000);
+                }
+                else {
+                    loadWords();
+                }
             });
 }
 var activity = Ti.Android.currentActivity;
