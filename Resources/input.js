@@ -1,4 +1,5 @@
 var win = Titanium.UI.currentWindow;
+var tabGroup = win.tabGroup;
 
 function loadInput() {
     var text = Titanium.UI.createTextField({hintText: 'word',
@@ -13,9 +14,16 @@ function loadInput() {
             xhr.onload = function() {
                 var mess = JSON.parse(this.responseText);
                 var diag = Titanium.UI.createAlertDialog({message: mess.result});
-                diag.show();
+                if (mess.result == 'done') {
+                    text.value = "";
+                    tabGroup.setActiveTab(0);
+                    tabGroup.reload(); //from list.js
+                }
+                else {
+                    diag.show();
+                }
             };
-            //xhr.open("POST", "http://192.168.11.8:5000/input");
+            //xhr.open("POST", "http://192.168.11.10:5000/input");
             //xhr.open("POST", "http://192.168.11.6:5080/input");
             xhr.open("POST", "http://learn2crawl.org:5080/input");
             xhr.send({word: text.value});
