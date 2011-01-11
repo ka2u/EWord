@@ -4,7 +4,7 @@ var tableView = null;
 function loadWords() {
     var rowData = [];
     var loader = Ti.Network.createHTTPClient();
-    //loader.open("GET", "http://192.168.11.8:5000/list");
+    //loader.open("GET", "http://192.168.11.10:5000/list");
     //loader.open("GET", "http://192.168.11.6:5080/list");
     loader.open("GET", "http://learn2crawl.org:5080/list");
     loader.onload = function() {
@@ -27,7 +27,7 @@ function loadWords() {
             var post_view = Titanium.UI.createView({height:'auto', layout:'vertical', top:5, right:5, bottom:5, left:5});
             word_lbl.addEventListener('click', function() {
                     var xhr = Titanium.Network.createHTTPClient();
-                    //xhr.open("POST", "http://192.168.11.8:5000/def");
+                    //xhr.open("POST", "http://192.168.11.10:5000/def");
                     //xhr.open("POST", "http://192.168.11.6:5080/def");
                     xhr.open("POST", "http://learn2crawl.org:5080/def");
                     xhr.onload = function() {
@@ -49,14 +49,19 @@ function loadWords() {
     loader.send();
 }
 
+function reload() {
+    tableView.setData([]);
+    setTimeout(function() {
+            loadWords();
+        }, 1000);
+}
+
+
 var rel = null;
 var menuClickHandler = function() {
         rel.addEventListener('click', function() {
                 if (tableView) {
-                    tableView.setData([]);
-                    setTimeout(function() {
-                            loadWords();
-                        }, 1000);
+                    reload();
                 }
                 else {
                     loadWords();
@@ -71,3 +76,6 @@ activity.onCreateOptionsMenu = function(e) {
 }
 
 loadWords();
+win.tabGroup.reload = function() {
+    reload();
+}
